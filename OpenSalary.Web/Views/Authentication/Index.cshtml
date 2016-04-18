@@ -1,0 +1,19 @@
+﻿@model OpenSalary.Web.Models.User
+
+<div class="header-wrap">
+    <h1>Välkommen!</h1>
+    <p>Användarnamnet finns registrerat<br/>Ange lösenord nedan för att låsa upp bedömningen</p>
+</div>
+@using (Html.BeginForm("Login", "Authentication")) {
+
+    <input type="hidden" name="login-userName" value="@Model.UserName" />
+    <div class="editor-label">
+        <label for="login-pwd">Lösenord</label>
+    </div>
+    <div class="editor-field">
+        <input type="password" name="login-pwd" id="login-pwd"/>
+    </div>
+    <p>
+        <input type="submit" value="Logga in" />
+    </p>
+}

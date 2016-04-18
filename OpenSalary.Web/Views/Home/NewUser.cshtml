@@ -1,0 +1,35 @@
+﻿@model OpenSalary.Web.Models.User
+
+<div class="header-wrap">
+    <h1>Välkommen!</h1>
+    <p>
+        <em>http://opensalary.meridium.se/@Model.UserName</em>
+        <br/>
+        Registrera den här adressen genom att ange ditt namn och lösenord nedan
+    </p>
+</div>
+@using (Html.BeginForm("NewUser", "Home")) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <input type="hidden" name="login-userName" value="@Model.UserName" />
+        <div class="editor-label">
+            <label for="login-name">För- och efternamn</label>
+        </div>
+        <div class="editor-field">
+            <input type="text" name="login-name" id="login-name" />
+        </div>
+
+        <div class="editor-label">
+            <label for="login-pwd">Lösenord</label>
+        </div>
+        <div class="editor-field">
+            <input type="password" name="login-pwd" id="login-pwd" />
+        </div>
+        <p>
+            <input type="submit" value="Registrera" />
+        </p>
+    </fieldset>
+}
+
