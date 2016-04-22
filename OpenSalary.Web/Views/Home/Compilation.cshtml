@@ -1,0 +1,43 @@
+﻿@using OpenSalary.Web.Core.Entities
+@using OpenSalary.Web.Core.Extensions
+@model OpenSalary.Web.Models.ViewModels.CompilationViewModel
+<div class="header-wrap">
+    <h1>
+        Välkommen till<br />Meridium Open Salary
+    </h1>
+    <p>Redigera din bedömning genom att mata in ditt användarnamn i adressfältet<br /><em>http://opensalary.meridium.se/[användarnamn]</em></p>
+</div>
+<div class="cards" id="Cards">
+    <div class="card-wrapper">
+        <div class="card-wrapper-background"></div>
+        <div class="card-wrapper-body">
+            <div class="row">
+                @foreach (JudgmentCategory category in Enum.GetValues(typeof (JudgmentCategory))) {
+                    <div class="card-category-header @(category.ToString().Equals(Model.CurrentSortBy)?"sorted":string.Empty)"><a href="/?sort=@category">@category</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <em class="sort">Sortering: @(string.IsNullOrEmpty(Model.CurrentSortBy) ? "Summering" : Model.CurrentSortBy). <a href="/">Nollställ</a></em>
+    @foreach (var user in Model.AllEmployees) {
+        <div class="card-wrapper">
+            <div class="card-wrapper-background"></div>
+            <div class="card-wrapper-body">
+                <h2>@user.Name</h2>
+                <div class="row judgment--row">
+                    @foreach (JudgmentCategory category in Enum.GetValues(typeof (JudgmentCategory))) {
+                        var level = user.CurrentJudgment.Judgment.ContainsKey(category) ? (JudgmentLevel) user.CurrentJudgment.Judgment[category] : JudgmentLevel.Individ;
+                        <div class="item tooltip card @category @(user.CurrentJudgment.Judgment.ContainsKey(category) ? "card--complete" : string.Empty)" role="button" data-desc="@category.GetDescription(level)">
+                            <div class="card-background"></div>
+                            <div class="card-body">                                
+                                <strong class="card-heading">@level</strong>
+                                <footer class="card-meta">@category</footer>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

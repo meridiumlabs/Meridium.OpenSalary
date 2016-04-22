@@ -141,6 +141,7 @@
     <Content Include="Content\Icons\uE006-star-full.svg" />
     <Content Include="Content\Scripts\Main.js" />
     <Content Include="Content\Scripts\Modules\JudgmentCards.js" />
+    <None Include="Content\Styles\Components\Compilation.scss" />
     <Content Include="Global.asax" />
     <Content Include="Static\Fonts\icons.svg" />
     <Content Include="Static\Scripts\app.js" />
@@ -163,6 +164,7 @@
     </Compile>
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\ViewModels\BoardViewModel.cs" />
+    <Compile Include="Models\ViewModels\CompilationViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -194,6 +196,7 @@
     <Content Include="Static\Fonts\icons.eot" />
     <Content Include="Static\Fonts\icons.ttf" />
     <Content Include="Static\Fonts\icons.woff" />
+    <Content Include="Views\Home\Compilation.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

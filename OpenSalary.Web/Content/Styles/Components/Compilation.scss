@@ -1,0 +1,93 @@
+﻿.sort {
+    display:block;
+    text-align:center;
+    color:#fff;
+    font-size:14px;
+    a {
+            position:relative;
+            z-index: 3;
+            color:#fff;            
+        :visited {
+            color:#fff;
+        }        
+      }
+}
+.card-wrapper {
+    font-size:16px;
+    position:relative;
+    padding:0;
+    display:block;
+    box-sizing:border-box;    
+    width:100%;    
+    .card-category-header {
+        font-size:16px;
+        position:relative;
+        margin:0;
+        padding:0;
+        padding:4px;
+        display:inline-block;
+        box-sizing:border-box;
+        color:#fff;
+        text-transform:uppercase;
+        font-weight:600;
+        line-height:21px;      
+        width:19.6%;
+        text-align:center;
+
+        a {
+            position:relative;
+            display:block;
+            z-index: 3;
+            color:#fff;
+            text-decoration:none;
+        }
+        a:visited {
+            color:#fff;
+        }        
+    }    
+    h2 {
+        font-size:16px;
+        position:relative;
+        margin:0;
+        padding:0;
+        padding:4px;
+        display:inline-block;
+        box-sizing:border-box;
+        color:#fff;
+        text-transform:uppercase;
+        font-weight:600;
+        line-height:21px;        
+    }
+       .card-wrapper-background {
+           position:absolute;
+            top:4px;
+            left:4px;
+            bottom:4px;
+            right:4px;
+            background:rgba(255,255,255,0.3);
+            border:1px solid rgba(255,255,255,0.5);
+            mix-blend-mode:soft-light;
+            z-index:1;
+            border-radius:2px;
+       }
+       .card-wrapper:hover .card-wrapper-background {            
+            background:rgba(255,255,255,0.5);    
+        }
+       .card-wrapper-body {
+           position:static;
+            top:4px;
+            left:4px;
+            bottom:4px;
+            right:4px;
+            z-index:2;
+            padding:21px;           
+       }
+       .card {
+           width:19.6% !important;           
+           height:120px;
+           cursor:default;
+           .card-body {
+                padding-top:21px;           
+            }
+       }
+}

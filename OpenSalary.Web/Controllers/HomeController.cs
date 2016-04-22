@@ -14,15 +14,30 @@ using OpenSalary.Web.Models.ViewModels;
 namespace OpenSalary.Web.Controllers {
     public class HomeController : Controller {
         
-        public ActionResult Index(string name)
+        public ActionResult Index(string name, string sort)
         {
             
             if (string.IsNullOrEmpty(name)) {
-                List<User> registeredUsers;
+                //Show compilation view
+                var viewModel = new CompilationViewModel();                
                 using (var session = DataStore.Get().OpenSession()) {
-                    registeredUsers = session.Query<User>().ToList();
+                    viewModel.AllEmployees = session.Query<User>().ToList();
+                    viewModel.CurrentSortBy = sort;
+                    if (string.IsNullOrEmpty(sort)) {
+                        viewModel.AllEmployees =
+                            viewModel.AllEmployees.OrderByDescending(
+                                x => x.CurrentJudgment.Judgment.Sum(j => (int) j.Value)).ToList();
+                    } else {
+                        var category = (JudgmentCategory) Enum.Parse(typeof (JudgmentCategory), sort, true);
+                        viewModel.AllEmployees =
+                            viewModel.AllEmployees.OrderByDescending(
+                                x =>
+                                    x.CurrentJudgment.Judgment.ContainsKey(category)
+                                        ? x.CurrentJudgment.Judgment[category]
+                                        : 0).ToList();
+                    }
                 }
-                return View("Welcome", registeredUsers);
+                return View("Compilation", viewModel);
             }
 
             using (var session = DataStore.Get().OpenSession()) {
