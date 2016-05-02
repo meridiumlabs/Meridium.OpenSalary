@@ -6,8 +6,10 @@ using System.Net;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
+using Meridium.ExcelExport;
 using OpenSalary.Web.Core;
 using OpenSalary.Web.Core.Entities;
+using OpenSalary.Web.Core.Extensions;
 using OpenSalary.Web.Models;
 using OpenSalary.Web.Models.ViewModels;
 
@@ -134,7 +136,15 @@ namespace OpenSalary.Web.Controllers {
 
             }
             return RedirectToAction("Index", new { name = userName });
-        }        
+        }
+
+        public ActionResult Export() {
+            using (var session = DataStore.Get().OpenSession()) {
+                var users = session.Query<User>().ToList();
+                var exports = users.ToExportResult();
+                return File(exports.ToExcel(), "application/vnd.ms-excel", "opensalary-export.xlsx");
+            }
+        }
     }
 
 

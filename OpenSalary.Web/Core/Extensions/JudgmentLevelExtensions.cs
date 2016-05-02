@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.Composition.Primitives;
+using System.Linq;
 using OpenSalary.Web.Core.Entities;
+using OpenSalary.Web.Models;
 
 namespace OpenSalary.Web.Core.Extensions {   
    public static class JudgmentLevelExtensions {
@@ -73,6 +77,18 @@ namespace OpenSalary.Web.Core.Extensions {
                default:
                    throw new ArgumentOutOfRangeException(nameof(category), category, null);
            }
+       }
+
+       public static List<ExportResult> ToExportResult(this List<User> users) {
+           return users.Select(user => new ExportResult() {
+                                                              Name = user.Name,
+                                                              Knowledge = user.CurrentJudgment.Judgment.ContainsKey(JudgmentCategory.Kunskap) ? user.CurrentJudgment.Judgment[JudgmentCategory.Kunskap].ToString() : string.Empty,
+                                                              Culture = user.CurrentJudgment.Judgment.ContainsKey(JudgmentCategory.Företagskultur) ? user.CurrentJudgment.Judgment[JudgmentCategory.Företagskultur].ToString() : string.Empty,
+                                                              Coaching = user.CurrentJudgment.Judgment.ContainsKey(JudgmentCategory.Coachning) ? user.CurrentJudgment.Judgment[JudgmentCategory.Coachning].ToString() : string.Empty,
+                                                              Commitment = user.CurrentJudgment.Judgment.ContainsKey(JudgmentCategory.Engagemang) ? user.CurrentJudgment.Judgment[JudgmentCategory.Engagemang].ToString() : string.Empty,
+                                                              CustomerValue = user.CurrentJudgment.Judgment.ContainsKey(JudgmentCategory.Kundförståelse) ? user.CurrentJudgment.Judgment[JudgmentCategory.Kundförståelse].ToString() : string.Empty,
+                                                              FreeMotivation = user.CurrentJudgment.FreeMotivation
+                                            }).ToList();
        }    
     }
 }
